@@ -1,0 +1,295 @@
+/* ================= RESET ================= */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================= ROOT VARIABLES ================= */
+:root {
+  --text-main: #2c2c2c;
+  --text-soft: #666;
+  --accent: #2c2c2c;
+  --border: rgba(0, 0, 0, 0.06);
+
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.12);
+
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================= BASE ================= */
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  color: var(--text-main);
+
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start; /* allow top flow */
+  justify-content: center;
+
+  position: relative;
+  overflow-x: hidden; /* only hide sideways scroll */
+  overflow-y: auto; /* allow vertical scroll */
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: linear-gradient(
+    rgba(248, 249, 251, 0.45),
+    rgba(238, 241, 245, 0.5)
+  );
+
+  z-index: -1;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+  width: 100%;
+  max-width: 760px;
+  padding: 28px;
+}
+
+/* ================= CARD ================= */
+.card {
+  background: rgba(255, 255, 255, 0.35); /* transparent but visible */
+  padding: 46px 40px;
+  border-radius: var(--radius-lg);
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  text-align: center;
+  position: relative;
+
+  transition: var(--transition);
+}
+/* hover polish */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* top glow line */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65%;
+  height: 6px;
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(to right, transparent, #dcdfe4, transparent);
+  opacity: 0.6;
+}
+
+/* ================= TITLE ================= */
+h1 {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 28px;
+  letter-spacing: 0.7px;
+
+  background: linear-gradient(to right, #2c2c2c, #666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================= LETTER ================= */
+.letter {
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.5;
+  max-width: 560px;
+  margin: 0 auto;
+  hyphens: auto;
+}
+
+/* Paragraph base */
+.letter p {
+  margin-bottom: 14px;
+  position: relative;
+
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeText 0.7s ease forwards;
+}
+
+/* smoother stagger */
+.letter p:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.letter p:nth-child(2) {
+  animation-delay: 0.35s;
+}
+.letter p:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.letter p:nth-child(4) {
+  animation-delay: 0.65s;
+}
+.letter p:nth-child(5) {
+  animation-delay: 0.8s;
+}
+.letter p:nth-child(6) {
+  animation-delay: 0.95s;
+}
+.letter p:nth-child(7) {
+  animation-delay: 1.1s;
+}
+.letter p:nth-child(8) {
+  animation-delay: 1.25s;
+}
+
+/* Indentation */
+.letter p:not(:first-child) {
+  text-indent: 2em;
+}
+
+/* ================= HIGHLIGHT ================= */
+.letter p.highlight {
+  text-align: center;
+  text-indent: 0;
+  font-weight: 500;
+  font-style: italic;
+  color: #555;
+
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+
+/* underline glow */
+.highlight::after {
+  content: "";
+  display: block;
+  margin: 10px auto 0;
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #bbb, transparent);
+}
+
+/* ================= BUTTONS ================= */
+.actions {
+  margin-top: 36px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button {
+  font-family: inherit;
+  padding: 11px 24px;
+  border-radius: var(--radius-pill);
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+
+  position: relative;
+  overflow: hidden;
+
+  transition: var(--transition);
+}
+
+/* ripple */
+button::after {
+  content: "";
+  position: absolute;
+  width: 130%;
+  height: 130%;
+  top: 50%;
+  left: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+
+button:active::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Primary */
+.primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.primary:hover {
+  background: #000;
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Secondary */
+.secondary {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+.secondary:hover {
+  background: #f3f3f3;
+  transform: translateY(-1px);
+}
+
+/* ================= EXTRA TEXT ================= */
+#extra {
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.7;
+  text-align: center;
+
+  min-height: 24px;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+  .card {
+    padding: 34px 24px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .letter {
+    font-size: 15px;
+  }
+}
